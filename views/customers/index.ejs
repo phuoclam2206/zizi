@@ -1,0 +1,51 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+
+	<%- include('../logout'); %>
+
+	<div class="row">
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-12">
+			<table class="table table-bordered table-hover" id="tab_logic">
+				<thead>
+				<tr >
+					<th class="text-center">ID</th>
+					<th class="text-center">Tên</th>
+					<th class="text-center" colspan="2">Tùy chọn</th>
+				</tr>
+				</thead>
+				<tbody>
+					<% customers.forEach(function(customer) { %>
+						<tr id='addr0'>
+							<td class="text-center"><%= customer.id %></td>
+							<td class="text-center"><%= customer.name %></td>
+							<td class="text-center">
+								<a href="/customers/update/<%= customer.id %>">
+									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								</a>
+							</td>
+							<td class="text-center">
+								<!-- <form action="/customers/delete/<%= customer.id %>" method="post">
+								  <button type="submit" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+								</form> -->
+								<a href="/customers/delete/<%= customer.id %>" onclick="return confirm('Are you sure?')">
+									<i class="fa fa-trash-o" aria-hidden="true"></i>
+								</a>
+							</td>
+							
+						</tr>
+				    <% }); %>
+				</tbody>
+			</table>
+			<a href="/customers/create" class="btn btn-info pull-left">Thêm</a>
+		</div>
+
+	</div>
+</div>
+</body>
+<script src="/public/js/formAddRows.js"></script>
+</html>

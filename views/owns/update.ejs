@@ -1,0 +1,38 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+	<%- include('../logout'); %>
+	<div class="row">
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-12">
+			<form action="/owns/update/<%= own.id %>" method="post" id="demo-form2" data-parsley-validate class="form-horizontal form-label-left">
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">Tên <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="name" value="<%= own.customer_name %>" required="required" class="form-control col-md-7 col-xs-12" name="name" disabled>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12" for="price">Tiền <span class="required">*</span></label>
+                    <div class="col-md-6 col-sm-6 col-xs-12">
+                        <input type="text" id="price" required="required" class="form-control col-md-7 col-xs-12" name="price" value="<%= own.price %>">
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                    <button type="submit" class="btn btn-success">Submit</button>
+                    <a href="/owns" class="btn btn-primary pull-right">Cancel</a>
+                </div>
+                </div>
+
+            </form>
+		</div>
+
+
+	</div>
+</div>
+</body>
+<script src="/public/js/formAddRows.js"></script>
+</html>

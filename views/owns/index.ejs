@@ -1,0 +1,73 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="row">
+	<div class="col-md-8 col-md-offset-2">
+		<%- include('../logout'); %>		
+	</div>
+</div>
+<div class="row">
+	<div class="col-md-2">
+		<div class="row">
+			<div class="col-md-6 col-md-offset-3">
+				<% if(users) { %>
+				<div class="dropdown">
+				    <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">Theo user
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu dropdown-menu-left">
+				    	<li><a href="/owns">All</a></li>
+				    	<% users.forEach(function(user) { %>
+				    		<li><a href="/owns/user/<%= user.id %>"><%= user.username %></a></li>
+                         <% }); %>
+				    </ul>
+				</div>	
+				<% } %>
+			</div>		
+		</div>
+		<div class="row" style="margin-top: 10px">
+			<div class="col-md-6 col-md-offset-3">
+				<% if(customers) { %>
+				<div class="dropdown">
+				    <button class="btn btn-primary dropdown-toggle btn-block" type="button" data-toggle="dropdown">Theo customer
+				    <span class="caret"></span></button>
+				    <ul class="dropdown-menu dropdown-menu-left">
+				    	<li><a href="/owns">All</a></li>
+				    	<% customers.forEach(function(customer) { %>
+				    		<li><a href="/owns/customer/<%= customer.id %>"><%= customer.name %></a></li>
+                         <% }); %>
+				    </ul>
+				</div>	
+				<% } %>
+			</div>		
+		</div>
+	</div>
+	<!-- LOCAL INFORMATION -->
+	<div class="col-md-6">
+		<table class="table table-bordered table-hover" id="table_owns">
+			<thead>
+			<tr >
+				<th class="text-center">ID</th>
+				<th class="text-center">Tên</th>
+				<th class="text-center">Tiền</th>
+				<th class="text-center">Người tạo</th>
+			</tr>
+			</thead>
+			<tbody>
+				<% owns.forEach(function(own, key) { %>
+					<tr>
+						<td class="text-center"><%= key + 1 %></td>
+						<td class="text-center"><a href="/owns/customer/detail/<%= own.customer_id %>"><%= own.customer_name %></a></td>
+						<td class="text-center price"><%= own.price %></td>
+						<td class="text-center"><%= own.user_username %></td>
+					</tr>
+			    <% }); %>
+			</tbody>
+		</table>
+		<a href="/owns/create" class="btn btn-info pull-left">Thêm</a>
+	</div>
+</div>	
+</body>
+<script src="/public/js/totalTables.js"></script>
+</html>
