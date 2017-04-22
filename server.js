@@ -1,14 +1,10 @@
-// server.js
-
-// set up ======================================================================
-// get all the tools we need
 var express  = require('express');
 var session  = require('express-session');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var morgan = require('morgan');
 var app      = express();
-var port     = process.env.PORT || 8080;
+var port     = process.env.PORT || 3001;
 
 var passport = require('passport');
 var flash    = require('connect-flash');
@@ -47,7 +43,8 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes_products.js')(app, passport); 
 require('./app/routes_customers.js')(app, passport); 
-require('./app/routes_owns.js')(app, passport); 
+require('./app/routes_owns.js')(app, passport);
+require('./app/routes_water_reports')(app, passport);
 
 // launch ======================================================================
 app.listen(port);

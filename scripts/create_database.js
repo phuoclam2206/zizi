@@ -40,6 +40,18 @@ CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.owns_table 
     FOREIGN KEY fk_users_user_id(user_id) REFERENCES `' + dbconfig.database + '`.`' + dbconfig.users_table + '`(id) ON UPDATE CASCADE ON DELETE RESTRICT \
 )ENGINE=InnoDB');
 
-console.log('Success: Database Created!')
+connection.query('\
+CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.water_reports_table + '` ( \
+    `id` int not null auto_increment primary key, \
+    `before` INT NOT NULL, \
+    `after` INT NOT NULL, \
+    `product_id` INT NOT NULL, \
+    `user_id` INT, \
+    `created_date` TIMESTAMP DEFAULT CURRENT_TIMESTAMP, \
+    FOREIGN KEY fk_products_product_id(product_id) REFERENCES `' + dbconfig.database + '`.`' + dbconfig.products_table + '`(id) ON UPDATE CASCADE ON DELETE RESTRICT, \
+    FOREIGN KEY fk_users_user_id(user_id) REFERENCES `' + dbconfig.database + '`.`' + dbconfig.users_table + '`(id) ON UPDATE CASCADE ON DELETE RESTRICT \
+)ENGINE=InnoDB');
+
+console.log('Success: Database Created!');
 
 connection.end();

@@ -1,6 +1,5 @@
 var products = require('../controllers/controllers_products');
 var authencation = require('./routes_authencation');
-// app/routes.js
 module.exports = function(app, passport) {
 	
 	app.get('/products', authencation.isLoggedIn, products.getProduct);
