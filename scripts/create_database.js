@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.users_table
     `password` CHAR(60) NOT NULL \
 )ENGINE=InnoDB');
 
-connection.query('INSERT INTO ' + dbconfig.database + '`.`' + dbconfig.users_table + ' ( id, username, password) values (1, admin, phuoclam2206)');
+connection.query('INSERT INTO `' + dbconfig.database + '`.`' + dbconfig.users_table + '` ( id, username, password) values (1, "admin", "phuoclam2206")');
 
 connection.query('\
 CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.products_table + '` ( \
