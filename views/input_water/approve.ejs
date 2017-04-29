@@ -1,0 +1,55 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+
+    <%- include('../logout'); %>
+    <form action="/input_water/create" method="post">
+    
+        <div class="row">
+            <table class="table table-bordered table-hover" id="finalWaterReports">
+                <thead>
+                    <tr>
+                        <th class="text-center">STT</th>
+                        <th class="text-center">Tên nước</th>
+                        <th class="text-center">Số lượng</th>
+                        <th class="text-center">Người gữi</th>
+                        <th class="text-center">Ngày gữi</th>
+                        
+                    </tr>
+                </thead>
+                <tbody>
+                    <input type="hidden" required="required" class="form-control col-md-7 col-xs-12" name="parse_id" value="<%=  inputWater[0].parse_id %>" >
+                    <% if(inputWater) { inputWater.forEach(function(value, key) { %>
+                    <tr>
+                        <td class="text-center">
+                            <%= key + 1 %>
+                        </td>
+                        <td class="text-center" disable>
+                            <%= value.product_name %>
+                        </td>
+                        <td class="text-center">
+                            <input type="number" required="required" class="form-control col-md-7 col-xs-12" name="products['<%= value.id %>']" value="<%= value.number %>">
+                        </td>
+                        <td class="text-center">
+                            <%= value.username %>
+                        </td>
+                        <td class="text-center">
+                            <%= moment(value.created_date).format('HH:mm DD-MM-YY') %>
+                        </td>
+                    </tr>
+                    <% })} %>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <button class="btn btn-info" type="submit">Xác nhận</button>
+        </div>
+    </form>
+</div>
+</body>
+<script src="/public/js/totalTables.js"></script>
+<script src="/public/js/formAddRows.js"></script>
+</html>

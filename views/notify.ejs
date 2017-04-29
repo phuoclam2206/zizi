@@ -1,0 +1,6 @@
+<% if (locals.notify_success && locals.notify_success.length > 0) { %>
+    <div class="alert alert-success"><%= locals.notify_success %></div>
+<% } %>
+<% if (locals.notify_error && locals.notify_error.length > 0) { %>
+    <div class="alert alert-danger"><%= locals.notify_error %></div>
+<% } %>

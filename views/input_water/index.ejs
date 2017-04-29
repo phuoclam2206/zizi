@@ -1,0 +1,53 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+
+    <%- include('../logout'); %>
+    <div class="row">
+        <table class="table table-bordered table-hover" id="finalWaterReports">
+            <thead>
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Ngày nhận</th>
+                    <th class="text-center">Người gữi</th>
+                    <th class="text-center">Chi tiết</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <% if(inputWater) { inputWater.forEach(function(value, key) { %>
+                <tr>
+                    <td class="text-center">
+                        <%=  key + 1 %>
+                    </td>
+                    <td class="text-center">
+                        <%= moment(value.created_date).format('HH:mm DD-MM-YY') %>
+                    </td>
+                    <td class="text-center">
+                        <%=  value.username %>
+                    </td>
+                    <td class="text-center">
+                        <a href="/input_water/<%= value.parse_id %> "><%=  value.parse_id %></a>
+                    </td>
+                </tr>
+                <% })} %>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <% if(paginationView.numPage > 1) { %>
+        <ul class="pagination">
+            <% for(var i = 1; i<= paginationView.numPage; i++) { %>
+                <li class="<%= i-1 == paginationView.current ? 'active' : ''%>"><a href="/input_water?page=<%= i-1 %>"><%= i %></a></li>
+            <% } %>
+        </ul>
+        <% }%>
+    </div>  
+</div>
+</body>
+<script src="/public/js/totalTables.js"></script>
+<script src="/public/js/formAddRows.js"></script>
+</html>

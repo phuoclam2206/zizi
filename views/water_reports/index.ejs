@@ -1,0 +1,70 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+
+    <%- include('../logout'); %>
+    <div class="row">
+        <table class="table table-bordered table-hover" id="finalWaterReports">
+            <thead>
+                <tr>
+                    <th class="text-center">STT</th>
+                    <th class="text-center">Tiền giờ</th>
+                    <th class="text-center">Dịch vụ</th>
+                    <th class="text-center">Tổng thu</th>
+                    <th class="text-center">Thực thu</th>
+                    <th class="text-center">Thâm</th>
+                    <th class="text-center">Dư</th>
+                    <th class="text-center">Người tạo</th>
+                    <th class="text-center">Ngày tạo</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if(waterReports) { waterReports.forEach(function(waterReport, key) { %>
+                <tr>
+                    <td class="text-center">
+                        <%=  key + 1 %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.hours %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.service %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.total %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.final %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.lose %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.balance %>
+                    </td>
+                    <td class="text-center">
+                        <%=  waterReport.username %>
+                    </td>
+                    <td class="text-center">
+                        <%= moment(waterReport.created_date).format('HH:mm DD-MM-YY') %>
+                    </td>
+                </tr>
+                <% })} %>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <ul class="pagination">
+            <% for(var i = 1; i<= paginationView.numPage; i++) { %>
+                <li class="<%= i-1 == paginationView.current ? 'active' : ''%>"><a href="/water_reports?page=<%= i-1 %>"><%= i %></a></li>
+            <% } %>
+        </ul>
+    </div>  
+</div>
+</body>
+<script src="/public/js/totalTables.js"></script>
+<script src="/public/js/formAddRows.js"></script>
+</html>

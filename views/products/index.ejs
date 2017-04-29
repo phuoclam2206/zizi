@@ -1,0 +1,54 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+	<%- include('../logout'); %>
+	<% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+	<div class="row">
+		<!-- LOCAL INFORMATION -->
+		<div class="col-sm-12">
+			<table class="table table-bordered table-hover" id="tab_logic">
+				<thead>
+				<tr >
+					<th class="text-center">ID</th>
+					<th class="text-center">Tên</th>
+					<th class="text-center">Giá trị</th>
+					<th class="text-center" colspan="2">Tùy chọn</th>
+				</tr>
+				</thead>
+				<tbody>
+					<% products.forEach(function(product) { %>
+						<tr id='addr0'>
+							<td class="text-center"><%= product.id %></td>
+							<td class="text-center"><%= product.name %></td>
+							<td class="text-center"><%= product.price %></td>
+							<td class="text-center">
+								<a href="/products/update/<%= product.id %>">
+									<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+								</a>
+							</td>
+							<td class="text-center">
+								<!-- <form action="/products/delete/<%= product.id %>" method="post">
+								  <button type="submit" ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+								</form> -->
+								<a href="/products/delete/<%= product.id %>" onclick="return confirm('Are you sure?')">
+									<i class="fa fa-trash-o" aria-hidden="true"></i>
+								</a>
+							</td>
+							
+						</tr>
+				    <% }); %>
+				</tbody>
+			</table>
+			<a href="/products/create" class="btn btn-info pull-left">Thêm</a>
+		</div>
+
+	</div>
+</div>
+</body>
+<script src="/public/js/formAddRows.js"></script>
+</html>
