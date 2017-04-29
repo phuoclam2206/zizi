@@ -8,7 +8,7 @@ var configNotify = require('../config/notify');
 var inputWater = {
 	getInputWater: function(req, res, next) {
 		if(controllersAuthencations.isAdmin(req.user.id)) {
-            Promise.all([modelsInputWater.fetchInputWaterByUserId(req.user.id, pagination.paginator(req.query)), modelsInputWater.countInputWaterByUserId(req.user.id)]).then(function(result) {
+            Promise.all([modelsInputWater.fetchInputWater(pagination.paginator(req.query)), modelsInputWater.countInputWater()]).then(function(result) {
                 var paginationView = pagination.view(result[1][0] ? result[1][0].numRows : 0, req.query);
                 return res.render('input_water/index.ejs', {inputWater: result[0], moment: moment, paginationView: paginationView});
             });
@@ -22,7 +22,6 @@ var inputWater = {
 		})
 	},
 	postCreate: function(req, res, next) {
-		console.log(req.body.products);
 		if (req.body.parse_id) {
 			modelsInputWater.findByParseId(req.body.parse_id).then(function(result) {
 				if (result && result.id !== null) {

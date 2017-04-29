@@ -26,7 +26,6 @@ module.exports = function(app, passport) {
             failureFlash : true // allow flash messages
 		}),
         function(req, res) {
-            console.log("hello");
 
             if (req.body.remember) {
               req.session.cookie.maxAge = 1000 * 60 * 3;
@@ -71,4 +70,22 @@ module.exports = function(app, passport) {
 		req.logout();
 		res.redirect('/');
 	});
+
+	app.get('/login/facebook', passport.authenticate('facebook'));
+
+	app.get('/login/facebook/return',
+		passport.authenticate('facebook', { failureRedirect: '/login' }),
+		function(req, res) {
+			res.redirect('/profile');
+		});
+
+	app.get('/login/add_user', authencation.isLoggedIn, authencation.isAdmin, function(req, res) {
+		res.render('add_user.ejs');
+	});
+	app.get('/login/add_user/facebook', passport.authenticate('add-user-facebook'));
+	app.get('/login/add_user/facebook/return',
+		passport.authenticate('add-user-facebook', { failureRedirect: '/login' }),
+		function(req, res) {
+			res.redirect('/profile');
+		});
 };

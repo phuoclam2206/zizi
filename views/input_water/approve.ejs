@@ -21,7 +21,10 @@
                     </tr>
                 </thead>
                 <tbody>
+                    <% if(inputWater[0]) { %>
                     <input type="hidden" required="required" class="form-control col-md-7 col-xs-12" name="parse_id" value="<%=  inputWater[0].parse_id %>" >
+                    <% } %>
+
                     <% if(inputWater) { inputWater.forEach(function(value, key) { %>
                     <tr>
                         <td class="text-center">

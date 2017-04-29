@@ -2,7 +2,7 @@
 
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
-
+var FacebookStrategy = require('passport-facebook').Strategy;
 // load up the user model
 var mysql = require('mysql');
 var bcrypt = require('bcrypt-nodejs');
@@ -104,4 +104,42 @@ module.exports = function(passport) {
             });
         })
     );
+
+    passport.use(new FacebookStrategy({
+        clientID: '1688073858160253',
+        clientSecret: '0b1bdb301fa21cf5124dba9c16971c90',
+        callbackURL: 'http://localhost:3001/login/facebook/return'
+    },
+    function(accessToken, refreshToken, profile, done) {
+        // In this example, the user's Facebook profile is supplied as the user
+        // record.  In a production-quality application, the Facebook profile should
+        // be associated with a user record in the application's database, which
+        // allows for account linking and authentication with other identity
+        // providers.
+        return done(null, profile);
+    }));
+
+    passport.use(
+        'add-user-facebook',
+        new FacebookStrategy({
+            clientID: '1688073858160253',
+            clientSecret: '0b1bdb301fa21cf5124dba9c16971c90',
+            callbackURL: 'http://localhost:3001/login/add_user/facebook/return'
+        },
+        function(accessToken, refreshToken, profile, done) {
+            connection.query("SELECT * FROM users WHERE id = ?",[profile.id], function(err, rows) {
+                if (err)
+                    return done(err);
+                if (rows.length) {
+                    return done(null, false, req.flash('signupMessage', 'That username is already taken.'));
+                } else {
+                    var insertQuery = "INSERT INTO users ( id, username) values (?,?)";
+
+                    connection.query(insertQuery,[profile.id, profile.displayName],function(err, rows) {
+                        return done(null, profile);
+                    });
+                }
+            });
+            return done(null, profile);
+        }));
 };

@@ -17,7 +17,7 @@ var waterReports = {
 		}
     },
     getCreateWaterReport: function(req, res, next) {
-        Promise.all([modelsProducts.fetchProduct(), modelsInputWater.fetchLastParseId()]).then(function(result) {
+        Promise.all([modelsProducts.fetchProduct(), modelsInputWater.fetchLastParseIdByUserApproveId(req.user.id)]).then(function(result) {
             return res.render('water_reports/create.ejs', {products: result[0], input_water: result[1]});
         }).catch(function(){
             return res.redirect('/');
@@ -37,8 +37,6 @@ var waterReports = {
 			return res.redirect('/water_reports/create');
 		});
     }
-
-
 };
 
 
