@@ -47,10 +47,12 @@ var inputWaterRepository = {
     },
     fetchInputWater: function(page) {
         return new Promise(function(resolve, reject) {
-            var query = "select iw.parse_id as parse_id, iw.created_date, u.username as username  \
+            var query = "select iw.parse_id as parse_id, iw.created_date, u.username as username, ua.username as username_approve  \
             from " + dbconfig.input_water_table + " as iw \
             left join " + dbconfig.users_table + " u \
             on iw.user_id = u.id \
+	    left join " + dbconfig.users_table + " ua \
+	    on iw.user_approve_id = ua.id \
             group by iw.parse_id \
             order by iw.created_date desc "
             + pagination.paginator(page);
@@ -95,10 +97,12 @@ var inputWaterRepository = {
     },
     findByParseId: function(parseId) {
         return new Promise(function(resolve, reject) {
-            var query = "select iw.*, u.username as username, p.id as product_id, p.name as product_name \
+            var query = "select iw.*, u.username as username, p.id as product_id, p.name as product_name, ua.username as username_approve \
             from " + dbconfig.input_water_table + " as iw \
             left join " + dbconfig.users_table + " u \
             on iw.user_id = u.id \
+		left join " + dbconfig.users_table + " ua \
+		on iw.user_approve_id = ua.id \
             left join " + dbconfig.products_table + " p \
             on iw.product_id = p.id \
             where iw.parse_id = ? ";

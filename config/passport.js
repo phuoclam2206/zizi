@@ -108,7 +108,7 @@ module.exports = function(passport) {
     passport.use(new FacebookStrategy({
         clientID: '1688073858160253',
         clientSecret: '0b1bdb301fa21cf5124dba9c16971c90',
-        callbackURL: 'http://localhost:3001/login/facebook/return'
+        callbackURL: 'http://tinhvl.com/login/facebook/return'
     },
     function(accessToken, refreshToken, profile, done) {
         // In this example, the user's Facebook profile is supplied as the user
@@ -124,7 +124,7 @@ module.exports = function(passport) {
         new FacebookStrategy({
             clientID: '1688073858160253',
             clientSecret: '0b1bdb301fa21cf5124dba9c16971c90',
-            callbackURL: 'http://localhost:3001/login/add_user/facebook/return'
+            callbackURL: 'http://tinhvl.com/login/add_user/facebook/return'
         },
         function(accessToken, refreshToken, profile, done) {
             connection.query("SELECT * FROM users WHERE id = ?",[profile.id], function(err, rows) {

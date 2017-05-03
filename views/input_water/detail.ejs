@@ -15,13 +15,15 @@
                     <th class="text-center">Tên nước</th>
                     <th class="text-center">Số lượng</th>
                     <th class="text-center">Người gữi</th>
+			<th class="text-center">So luong nhan</th>
+			<th class="text-center">Nguoi nhan</th>
                     <th class="text-center">Ngày gữi</th>
                     
                 </tr>
             </thead>
             <tbody>
                 <% if(inputWater) { inputWater.forEach(function(value, key) { %>
-                <tr>
+                <tr class="<% if(value.number != value.number_approve) { %> danger <% } %>" >
                     <td class="text-center">
                         <%= key + 1 %>
                     </td>
@@ -34,6 +36,8 @@
                     <td class="text-center">
                         <%= value.username %>
                     </td>
+			<td class="text-center"><%= value.number_approve %></td>
+			<td class="text-center"><%= value.username_approve %></td>
                     <td class="text-center">
                         <%= moment(value.created_date).format('HH:mm DD-MM-YY') %>
                     </td>
