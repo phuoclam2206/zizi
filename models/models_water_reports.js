@@ -21,12 +21,14 @@ var waterReportsRepository = {
             });
         });   
     },
-    fetchWaterReport: function(page) {
+    fetchWaterReport: function(page, start, end) {
         return new Promise(function(resolve, reject) {
             var query = "select wr.*, u.username as username  \
             from " + dbconfig.water_reports_table + " as wr \
             left join " + dbconfig.users_table + " u \
             on wr.user_id = u.id \
+            where wr.created_date <= '" + end + "' \
+            and wr.created_date >= '" + start + "'\
             order by wr.created_date desc"
             + pagination.paginator(page);
 
@@ -37,12 +39,14 @@ var waterReportsRepository = {
         });
     },
 
-    countWaterReport: function(page) {
+    countWaterReport: function(start, end) {
         return new Promise(function(resolve, reject) {
             var query = "select count(wr.id) as numRows  \
             from " + dbconfig.water_reports_table + " as wr \
             left join " + dbconfig.users_table + " u \
             on wr.user_id = u.id \
+            where wr.created_date <= '" + end + "' \
+            and wr.created_date >= '" + start + "'\
             order by wr.created_date desc";
 
             connection.query(query, function(err, rows) {

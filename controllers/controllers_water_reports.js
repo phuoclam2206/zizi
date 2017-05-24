@@ -8,9 +8,16 @@ var moment = require('moment');
 var waterReports = {
 	getWaterReport: function(req, res, next) {
 		if(controllersAuthencations.isAdmin(req.user.id)) {
-            Promise.all([modelsWaterReports.fetchWaterReport(pagination.paginator(req.query)), modelsWaterReports.countWaterReport()]).then(function(result) {
+            var date = new Date();
+            var firstDay = new Date(date.getFullYear(), date.getMonth(), 2).toISOString().slice(0, 10);
+            var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 1).toISOString().slice(0, 10);
+		    var start = req.query.start ? req.query.start : firstDay;
+		    var end = req.query.end ? req.query.end : lastDay;
+
+            Promise.all([modelsWaterReports.fetchWaterReport(pagination.paginator(req.query), start, end), modelsWaterReports.countWaterReport(start, end)]).then(function(result) {
                 var paginationView = pagination.view(result[1][0].numRows, req.query);
-                return res.render('water_reports/index.ejs', {waterReports: result[0], moment: moment, paginationView: paginationView});
+                console.log(req.query);
+                return res.render('water_reports/index.ejs', {waterReports: result[0], moment: moment, paginationView: paginationView, query: req.query});
             });
 		} else {
 			return res.redirect('/water_reports/create');

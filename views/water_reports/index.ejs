@@ -58,13 +58,40 @@
     </div>
     <div class="row">
         <ul class="pagination">
+            <% var path = ''; if(query && query.start) { path += '&start=' + query.start } %>
+            <% if(query && query.end) { path += '&end=' + query.end } %>
             <% for(var i = 1; i<= paginationView.numPage; i++) { %>
-                <li class="<%= i-1 == paginationView.current ? 'active' : ''%>"><a href="/water_reports?page=<%= i-1 %>"><%= i %></a></li>
+                <li class="<%= i-1 == paginationView.current ? 'active' : ''%>"><a href="/water_reports?page=<%= i-1 %><%= path %>"><%= i %></a></li>
             <% } %>
         </ul>
-    </div>  
+    </div>
+    <div class="row">
+        <form action="/water_reports" method="get">
+            <div class="input-daterange input-group col-md-5" id="datepicker">
+                <input type="text" class="input-sm form-control" name="start" value="<%= query.start %>" />
+                <span class="input-group-addon">đến</span>
+                <input type="text" class="input-sm form-control" name="end" value="<%= query.end %>" />
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-info">Search</button>
+            </div>
+        </form>
+
+    </div>
+
 </div>
 </body>
+<script>
+
+    $(document).ready(function() {
+        $('.input-daterange').datepicker({
+            clearBtn: true,
+            language: "vi",
+            format: "yyyy-mm-dd",
+            update: new Date()
+        });
+    });
+</script>
 <script src="/public/js/totalTables.js"></script>
 <script src="/public/js/formAddRows.js"></script>
 </html>
