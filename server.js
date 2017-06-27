@@ -38,7 +38,13 @@ app.use(flash()); // use connect-flash for flash messages stored in session
 app.use('/public', express.static(__dirname + '/public'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
-
+// Global variable username of current user.
+app.use(function(req, res, next){
+	if(req.user) {
+		app.locals.username = req.user.username;
+	}
+	next();
+});
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes_products.js')(app, passport); 
