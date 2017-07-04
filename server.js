@@ -9,6 +9,13 @@ var port     = process.env.PORT || 3001;
 var passport = require('passport');
 var flash    = require('connect-flash');
 
+// Config connect db
+var mysql = require('mysql');
+var dbconfig = require('./config/database');
+var connection = mysql.createConnection(dbconfig.connection);
+var modelsWaterReports = require('./models/models_water_reports');
+connection.query('USE ' + dbconfig.database);
+
 // configuration ===============================================================
 // connect to our database
 
@@ -40,10 +47,28 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // Global variable username of current user.
 app.use(function(req, res, next){
+	var currentTime = new Date();
+
+	// returns the month (from 0 to 11)
+	var month = currentTime.getMonth() + 1;
+
+	// returns the year (four digits)
+	var year = currentTime.getFullYear();
 	if(req.user) {
-		app.locals.username = req.user.username;
+		modelsWaterReports.sumDebt(month,year,req.user.id).then(function(result) {
+			if(result && result.length > 0) {
+				app.locals.sumDebt = result;
+			} else {
+				app.locals.sumDebt = 0;
+			}
+			app.locals.username = req.user.username;
+			next();	
+		});
+	} else {
+		next();	
 	}
-	next();
+	
+	
 });
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport

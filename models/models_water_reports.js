@@ -54,6 +54,23 @@ var waterReportsRepository = {
                 resolve(rows);
             });    
         });
+    },
+
+    sumDebt: function(month, year, user_id) {
+        return new Promise(function(resolve, reject) {
+            var query = "select sum(wr.lose) as sumDebt \
+            from " + dbconfig.water_reports_table + " as wr \
+            left join " + dbconfig.users_table + " u \
+            on wr.user_id = u.id \
+            where wr.user_id = " + user_id + " \
+            and month(wr.created_date) = " + month + " \
+            and year(wr.created_date) = " + year + " \
+            group by wr.user_id";
+            connection.query(query, function(err, rows) {
+                if (err) reject(err);
+                resolve(rows);
+            }); 
+        })
     }
 }
 
