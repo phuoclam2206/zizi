@@ -4,29 +4,24 @@
 <% include header %>
 <body>
 <div class="container">
-	<%- include('logout'); %>
+    <%- include('logout'); %>
     <%- include('notify'); %>
-    <div class="row">
+    <div class="row profile">
         <div class="col-md-6">
             <div class="row">
-                <a href="/water_reports">Chuyển ca</a>
-                <br>
-                <a href="/input_water">Nhận nước</a>
-                <br>
-                <a href="/owns">Tiền nợ</a>
-                <br>
-                <a href="/owns/create">Ghi nợ</a>
-                <br>
-                <a href="/owns/create_pay">Trả nợ</a>
+                <div class="col-md-12 profile-link"><a href="/water_reports" class="btn btn-success btn-lg">Chuyển ca</a></div>
+                <div class="col-md-12 profile-link "><a href="/input_water" class="btn btn-success btn-lg">Nhận nước</a></div>
+                <div class="col-md-12 profile-link"><a href="/owns" class="btn btn-success btn-lg">Tiền nợ</a></div>
+                <div class="col-md-12 profile-link"><a href="/owns/create" class="btn btn-success btn-lg">Ghi nợ</a></div>
+                <div class="col-md-12 profile-link"><a href="/owns/create_pay" class="btn btn-success btn-lg">Trả nợ</a></div>
             </div>
         </div>
         <div class="col-md-6">
             <div class="row">
-                <a href="/products">Sản phẩm </a>
-                <br>
-                <a href="/customers">Khách hàng</a>
-                <br>
-                <a href="/login/add_user">Add user</a>
+                <div class="col-md-12 profile-link"><a href="/products" class="btn btn-success btn-lg">Sản phẩm </a></div>
+                <div class="col-md-12 profile-link"><a href="/customers" class="btn btn-success btn-lg">Khách hàng</a></div>
+                <div class="col-md-12 profile-link"><a href="/login/add_user" class="btn btn-success btn-lg">Add user</a></div>
+
             </div>
         </div>
     </div>
