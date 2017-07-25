@@ -46,30 +46,33 @@ app.use('/public', express.static(__dirname + '/public'));
 app.use('/node_modules', express.static(__dirname + '/node_modules'));
 
 // Global variable username of current user.
-app.use(function(req, res, next){
-	var currentTime = new Date();
+// app.use(function(req, res, next){
+// 	var currentTime = new Date();
 
-	// returns the month (from 0 to 11)
-	var month = currentTime.getMonth() + 1;
+// 	// returns the month (from 0 to 11)
+// 	var month = currentTime.getMonth() + 1;
 
-	// returns the year (four digits)
-	var year = currentTime.getFullYear();
-	if(req.user) {
-		modelsWaterReports.sumDebt(month,year,req.user.id).then(function(result) {
-			if(result && result.length > 0) {
-				app.locals.sumDebt = result;
-			} else {
-				app.locals.sumDebt = 0;
-			}
-			app.locals.username = req.user.username;
-			next();	
-		});
-	} else {
-		next();	
-	}
+// 	// returns the year (four digits)
+// 	var year = currentTime.getFullYear();
+// 	if(req.user) {
+// 		modelsWaterReports.sumDebt(month,year,req.user.id).then(function(result) {
+// 			if(result && result.length > 0) {
+// 				app.locals.sumDebt = result;
+// 			} else {
+// 				app.locals.sumDebt = 0;
+// 			}
+// 			app.locals.username = req.user.username;
+// 			next();	
+// 		});
+// 	} else {
+// 		next();	
+// 	}
 	
 	
-});
+// });
+app.get('/testt', function (req, res) {
+  res.send('Hello World!')
+})
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
 require('./app/routes_products.js')(app, passport); 
