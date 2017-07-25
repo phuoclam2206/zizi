@@ -71,7 +71,7 @@ app.use('/node_modules', express.static(__dirname + '/node_modules'));
 	
 // });
 app.get('/testt', function (req, res) {
-  res.send('Hello World!')
+  res.send('<1Hc2f>')
 })
 // routes ======================================================================
 require('./app/routes.js')(app, passport); // load our routes and pass in our app and fully configured passport
