@@ -33,9 +33,9 @@
                         </td>
                         <td class="text-center">
                             <% if(input_water) { input_water.forEach(function(value, key) { if(value.product_id === product.id) { %> 
-                                <input type="number" id="before" required="required" class="form-control col-md-7 col-xs-12" name="before" value="<%= value.number_approve%>">
+                                <input type="number" id="before" required="required" class="form-control col-md-7 col-xs-12" name="before" value="<%= value.number_approve%>" disabled>
                             <% }})} else { %> 
-                                <input type="number" id="before" required="required" class="form-control col-md-7 col-xs-12" name="before">
+                                <input type="number" id="before" required="required" class="form-control col-md-7 col-xs-12" name="before" disabled>
                             <% } %>
                         </td>
                         <td class="text-center">
@@ -80,6 +80,11 @@
                             </td>
                             <td class="text-center">
                                 <input type="number" id="balance" required="required" class="form-control" name="balance" readonly>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="text-center" colspan="6">
+                                <textarea name="comment" class="form-control" id="comment" cols="30" rows="10" placeholder="mô tả bữa ni trừ những tiền gì..."></textarea>
                             </td>
                         </tr>
                     </tbody>

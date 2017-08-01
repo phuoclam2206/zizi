@@ -7,7 +7,7 @@ connection.query('USE ' + dbconfig.database);
 var waterReportsRepository = {
 	insertWaterReport: function(waterReport) {
         return new Promise(function(resolve, reject) {
-            var insertQuery = "INSERT INTO " + dbconfig.water_reports_table + " ( hours, service, total, final, lose, balance, user_id ) values (?,?,?,?,?,?,?)";
+            var insertQuery = "INSERT INTO " + dbconfig.water_reports_table + " ( hours, service, total, final, lose, balance, user_id, comment ) values (?,?,?,?,?,?,?,?)";
             connection.query(insertQuery,[
             	parseInt(waterReport.hours), 
             	parseInt(waterReport.service), 
@@ -15,7 +15,8 @@ var waterReportsRepository = {
             	parseInt(waterReport.final), 
             	parseInt(waterReport.lose), 
             	parseInt(waterReport.balance), 
-            	parseInt(waterReport.user_id)], function(err, rows) {
+            	parseInt(waterReport.user_id),
+                waterReport.comment ? waterReport.comment : ''], function(err, rows) {
                 if (err) reject(false);
                 resolve(true);
             });

@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.users_table
     `password` CHAR(60) NOT NULL \
 )ENGINE=InnoDB');
 
-connection.query('INSERT INTO `' + dbconfig.database + '`.`' + dbconfig.users_table + '` ( id, username, password) values (1, "admin", "phuoclam2206")');
+connection.query('INSERT IGNORE INTO `' + dbconfig.database + '`.`' + dbconfig.users_table + '` ( id, username, password) values (1, "admin", "phuoclam2206")');
 
 connection.query('\
 CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.products_table + '` ( \
@@ -70,6 +70,8 @@ CREATE TABLE IF NOT EXISTS `' + dbconfig.database + '`.`' + dbconfig.input_water
     FOREIGN KEY fk_input_water_user_id(user_id) REFERENCES `' + dbconfig.database + '`.`' + dbconfig.users_table + '`(id) ON UPDATE CASCADE ON DELETE RESTRICT, \
     FOREIGN KEY fk_input_water_user_approve_id(user_approve_id) REFERENCES `' + dbconfig.database + '`.`' + dbconfig.users_table + '`(id) ON UPDATE CASCADE ON DELETE RESTRICT \
 )ENGINE=InnoDB');
+
+connection.query('ALTER TABLE  `' + dbconfig.database + '`.`' + dbconfig.water_reports_table + '` ADD COLUMN IF NOT EXISTS comment text ');
 
 console.log('Success: Database Created!');
 

@@ -16,7 +16,6 @@ var waterReports = {
 
             Promise.all([modelsWaterReports.fetchWaterReport(pagination.paginator(req.query), start, end), modelsWaterReports.countWaterReport(start, end)]).then(function(result) {
                 var paginationView = pagination.view(result[1][0].numRows, req.query);
-                console.log(req.query);
                 return res.render('water_reports/index.ejs', {waterReports: result[0], moment: moment, paginationView: paginationView, query: req.query});
             });
 		} else {

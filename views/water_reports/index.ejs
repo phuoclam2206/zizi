@@ -19,6 +19,7 @@
                     <th class="text-center">Dư</th>
                     <th class="text-center">Người tạo</th>
                     <th class="text-center">Ngày tạo</th>
+                    <th class="text-center">Comment</th>
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +51,9 @@
                     </td>
                     <td class="text-center">
                         <%= moment(waterReport.created_date).format('HH:mm DD-MM-YY') %>
+                    </td>
+                    <td class="text-center">
+                        <%= waterReport.comment %>
                     </td>
                 </tr>
                 <% })} %>
