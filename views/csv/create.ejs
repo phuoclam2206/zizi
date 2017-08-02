@@ -1,0 +1,25 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+    <%- include('../logout'); %>
+    <div class="row">
+        <form id="frmUploader" enctype="multipart/form-data" action="/csv/create" method="post">
+            <div class="form-group">
+
+                <label class="custom-file">
+                    <input type="file" id="file" class="custom-file-input" required multiple name="imgUploader">
+                    <span class="custom-file-control"></span>
+                </label>
+                <label for="btnSubmit">
+                    <input type="submit" class="btn btn-info" name="submit" id="btnSubmit" value="Upload" />
+                </label>
+
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

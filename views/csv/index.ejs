@@ -1,0 +1,40 @@
+<!-- views/profile.ejs -->
+<!doctype html>
+<html>
+<%- include('../header'); %>
+<body>
+<div class="container">
+    <%- include('../logout'); %>
+    <div class="row">
+        <table class="table table-bordered table-hover" id="finalWaterReports">
+            <thead>
+            <tr>
+                <th class="text-center">STT</th>
+                <th class="text-center">Ten file</th>
+                <th class="text-center">Download</th>
+                <th class="text-center">Delete</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% if(files) { files.forEach(function(file, key) { %>
+            <tr>
+                <td class="text-center">
+                    <%=  key + 1 %>
+                </td>
+                <td class="text-center">
+                    <%= file %>
+                </td>
+                <td class="text-center">
+                    <a href="/csv/download/<%= file %>"><i class="fa fa-download" aria-hidden="true"></i></a>
+                </td>
+                <td class="text-center">
+                    <a href="/csv/delete/<%= file %>" onclick="return confirm('Are you sure delete this file?')"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                </td>
+            </tr>
+            <% })} %>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

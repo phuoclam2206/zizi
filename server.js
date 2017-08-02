@@ -80,6 +80,7 @@ require('./app/routes_customers.js')(app, passport);
 require('./app/routes_owns.js')(app, passport);
 require('./app/routes_water_reports')(app, passport);
 require('./app/routes_input_water')(app, passport);
+require('./app/routes_csv')(app, passport);
 
 // launch ======================================================================
 app.listen(port);
