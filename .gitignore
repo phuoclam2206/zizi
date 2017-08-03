@@ -1,4 +1,4 @@
 tignore
 .idea/
 node_modules/
-file/csv/
+file/csv/*
