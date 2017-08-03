@@ -38,7 +38,7 @@ const csv = {
     },
     postCreateCsv: function (req, res, next) {
         if(controllersAuthencations.isAdmin(req.user.id)) {
-            fileConfig.saveFile(req, res, function (err) {
+            fileConfig.saveFile(req, res, function (err, status) {
                 if (err) {
                     return res.end("Something went wrong!");
                 }
